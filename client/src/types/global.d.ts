@@ -1,8 +1,8 @@
 type ResultType = {
-  id: number;
+  id?: number;
   result: string;
   equation: string;
-  timestamp: Date;
+  timestamp: string;
 };
 
 type UserProperties = {

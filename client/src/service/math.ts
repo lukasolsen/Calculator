@@ -1,4 +1,4 @@
-import { evaluate, simplify, complex } from "mathjs";
+import { evaluate, simplify, complex, isComplex } from "mathjs";
 
 const check = (expression: string): boolean => {
   if (expression === undefined) return false;
@@ -75,4 +75,17 @@ export function complexExpression(expression: string): string {
   const result = complex(expression);
 
   return result.toString();
+}
+
+/**
+ * Check if the expression is complex
+ * @param expression
+ * @returns
+ */
+export function isComplexExpression(expression: string): boolean {
+  if (!check(expression)) {
+    return false;
+  }
+
+  return isComplex(expression);
 }

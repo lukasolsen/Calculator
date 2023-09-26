@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { calculate } from "../service/math";
+import { calculate, isComplexExpression } from "../service/math";
 
 type CalculatorProps = {
   addResults: (result: string, equation: string) => void;
@@ -9,6 +9,7 @@ type CalculatorProps = {
 
 function Calculator({ addResults, input, setInput }: CalculatorProps) {
   const [result, setResult] = useState<string>("");
+  const [isComplex, setIsComplex] = useState<boolean>(false);
 
   const operatorRegex = new RegExp("[+\\-*/]");
 
@@ -18,6 +19,12 @@ function Calculator({ addResults, input, setInput }: CalculatorProps) {
   const reset = (): void => {
     setInput("");
     setResult("");
+  };
+
+  const handleInputChange = (value: string) => {
+    isComplexExpression(value) ? setIsComplex(true) : setIsComplex(false);
+    console.log(isComplex);
+    setInput(value);
   };
 
   const calculateExpression = () => {
@@ -39,6 +46,10 @@ function Calculator({ addResults, input, setInput }: CalculatorProps) {
       reset();
     } else {
       // set the input state as either including the previous value, or simply just replace the previous value
+      isComplexExpression(input + value)
+        ? setIsComplex(true)
+        : setIsComplex(false);
+
       setInput((prevInput) => {
         if (
           operatorRegex.test(prevInput[prevInput.length - 1]) &&
@@ -61,8 +72,13 @@ function Calculator({ addResults, input, setInput }: CalculatorProps) {
           type="text"
           value={input === "" ? result : input}
           className="w-full p-3 border rounded-lg text-2xl text-gray-800 dark:text-white bg-gray-200 dark:bg-gray-700"
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => handleInputChange(e.target.value)}
         />
+        {isComplex && (
+          <p className="text-red-500 text-sm text-right">
+            Complex expressions are not supported
+          </p>
+        )}
       </div>
       <div className="grid grid-cols-4 gap-3">
         <button

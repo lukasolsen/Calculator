@@ -70,7 +70,7 @@ function Sidebar({ results, features }: SidebarProps) {
                           </span>
                         </div>
                         <span className="text-gray-500 dark:text-gray-100">
-                          {result.timestamp.toLocaleTimeString()}{" "}
+                          {new Date(result.timestamp).toLocaleTimeString()}{" "}
                         </span>
                       </div>
                     );
