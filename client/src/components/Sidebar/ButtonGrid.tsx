@@ -19,7 +19,7 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ features }) => {
     .map((feature, index) => (
       <button
         key={index}
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
         onClick={feature.func}
       >
         {feature.name}
@@ -33,7 +33,9 @@ const ButtonGrid: React.FC<ButtonGridProps> = ({ features }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-4">{currentButtons}</div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:grid-cols-1">
+        {currentButtons}
+      </div>
       <div className="flex justify-between mt-4">
         {/* Previous Page Button */}
         <button
